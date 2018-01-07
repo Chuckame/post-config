@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#
+# Post-installation Configuration Scripts
+#
+# Common Debian based host tasks
+# - Install Docker packages
+# - User parameters
+
+DOCKER_VERSION=17.09
+
+install_docker_packages () {
+  curl https://releases.rancher.com/install-docker/$DOCKER_VERSION.sh | sh
+}
+
+main () {
+	install_base_packages
+	touch deb_docker_done
+}
+
+
+main
