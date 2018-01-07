@@ -1,7 +1,7 @@
 language: bash
 
 before_script:
-  - wget https://raw.githubusercontent.com/MatthieuMichon/post-config/master/tests/bootstrap
+  - wget https://raw.githubusercontent.com/Chuckame/post-config/master/tests/bootstrap
 
 script:
   - bash bootstrap
