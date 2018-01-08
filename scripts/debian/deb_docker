@@ -13,7 +13,7 @@ install_docker_packages () {
 }
 
 main () {
-	install_base_packages
+	install_docker_packages
 	touch deb_docker_done
 }
 
