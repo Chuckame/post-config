@@ -42,7 +42,7 @@ EOF
 
 set_sshd_conf () {
 
-  cat > /root/.bash_rc <<EOF
+  cat > /etc/ssh/sshd_config <<EOF
 PermitRootLogin without-password
 #  Turn on privilege separation
 UsePrivilegeSeparation yes
