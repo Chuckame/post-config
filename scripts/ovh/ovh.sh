@@ -56,7 +56,7 @@ exec_remote () {
 cfg_debian () {
   exec_remote "scripts/ovh/ovh_debian"
   exec_remote "scripts/debian/deb_host"
-  exec_remote "scripts/debian/deb_lxc"
+  exec_remote "scripts/debian/deb_docker"
 }
 
 
