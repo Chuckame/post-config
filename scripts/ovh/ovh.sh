@@ -13,7 +13,7 @@ EXPECT_SCRIPT_PATH="/tmp/script"
 
 # Remote scripts URI root
 URI_ROOT="https://raw.githubusercontent.com/"\
-"MatthieuMichon/post-config/master/"
+"Chuckame/post-config/master/"
 
 # OS Release file
 OSR_FILE="/etc/os-release"
