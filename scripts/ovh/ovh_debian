@@ -7,6 +7,7 @@
 # - Fix domain
 
 DOMAIN=chuckame.fr
+TIME_ZONE=Europe/Paris
 
 fix_domain() {
   sed -i -E "s/^search\s+(\w.?)+/search $DOMAIN/" /etc/resolv.conf
@@ -35,7 +36,7 @@ EOF
   dpkg-reconfigure --frontend=noninteractive locales
   
   rm /etc/localtime
-  ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
+  ln -s /usr/share/zoneinfo/$TIME_ZONE /etc/localtime
   dpkg-reconfigure --frontend noninteractive tzdata
 }
 
