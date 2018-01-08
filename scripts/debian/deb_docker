@@ -14,7 +14,7 @@ install_docker_packages () {
 }
 
 install_rancher () {
-	docker run -d --restart=unless-stopped -p 8080:8080 rancher/server
+	docker run -d --restart=unless-stopped --name=rancher-server -p 8080:8080 rancher/server
 }
 
 main () {
