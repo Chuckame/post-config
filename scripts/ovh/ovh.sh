@@ -4,12 +4,7 @@
 #
 # First stage script for OVH dedicated servers
 # - Get distro name
-# - Check server is an OVH dedicated server
 # - Download and execute appropriate scripts
-
-
-# OVH dedicated servers are expected to run this script as "script"
-EXPECT_SCRIPT_PATH="/tmp/script"
 
 # Remote scripts URI root
 URI_ROOT="https://raw.githubusercontent.com/Chuckame/post-config/master/"
@@ -17,24 +12,11 @@ URI_ROOT="https://raw.githubusercontent.com/Chuckame/post-config/master/"
 # OS Release file
 OSR_FILE="/etc/os-release"
 
-# Secondary script file
-NEXT_FILE=/tmp/next
-
 # Error codes
 ERR_OK=0
-ERR_NOT_DEDICATED=1
 ERR_OSR_FILE=2
 ERR_DISTRO=3
 ERR_TRAVIS=255
-
-
-check_ovh_dedicated () {
-  if ! [[ "${0}" == $EXPECT_SCRIPT_PATH ]]; then
-    err "unexpected script path ${0}: Not a dedicated server."
-    exit $ERR_NOT_DEDICATED
-  fi
-}
-
 
 get_distro () {
   if ! [[ -r $OSR_FILE ]]; then
@@ -83,8 +65,6 @@ main () {
     run_tests
     exit $ERR_OK
   fi
-
-  check_ovh_dedicated
 
   case "$DISTRO" in
     debian)
