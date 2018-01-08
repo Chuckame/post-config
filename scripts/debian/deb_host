@@ -4,7 +4,7 @@
 #
 # Common Debian based host tasks
 # - Install base packages
-# - User parameters
+# - Set cool root prompt
 
 
 do_upgrade () {
@@ -16,13 +16,10 @@ do_upgrade () {
 
 install_base_packages () {
   apt-get --assume-yes install sudo tmux bash-completion ca-certificates
-  apt-get --assume-yes install git lm-sensors
+  apt-get --assume-yes install git lm-sensors nano
 }
 
-
-set_defaults () {
-  update-alternatives --set editor /usr/bin/vim.basic
-  
+set_prompt () {
   cat >> /root/.bash_rc <<EOF
 PS1="\n\
 ┌ \e[0;91m\${?}\e[0m ─ \e[0;31m\t\e[0m ─ \e[0;32m\u\e[0m@\e[0;94m\h\e[0m\n\
@@ -43,8 +40,9 @@ EOF
 
 
 main () {
+	do_upgrade
 	install_base_packages
-	set_defaults
+	set_prompt
 	touch deb_host_done
 }
 
