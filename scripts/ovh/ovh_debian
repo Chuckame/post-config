@@ -4,7 +4,13 @@
 #
 # OVH-specific actions for Debian based hosts
 # - Fix locales
+# - Fix domain
 
+DOMAIN=chuckame.fr
+
+fix_domain() {
+  sed -i -E "s/^search\s+(\w.?)+/search $DOMAIN/" /etc/resolv.conf
+}
 
 fix_locales () {
   echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
