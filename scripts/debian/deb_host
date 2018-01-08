@@ -5,7 +5,9 @@
 # Common Debian based host tasks
 # - Install base packages
 # - Set cool root prompt
+# - Set sshd config (set port & force pubkey connection > only root authorized)
 
+SSH_PORT=7777
 
 do_upgrade () {
   apt-get --assume-yes update
@@ -38,11 +40,53 @@ alias ..='cd ..'
 EOF
 }
 
+set_sshd_conf () {
+
+  cat > /root/.bash_rc <<EOF
+PermitRootLogin	without-password
+#  Turn on privilege separation
+UsePrivilegeSeparation yes
+# Prevent the use of insecure home directory and key file permissions
+StrictModes yes
+# Turn on  reverse name checking
+VerifyReverseMapping yes
+# Do you need port forwarding?
+AllowTcpForwarding no
+X11Forwarding no
+#  Specifies whether password authentication is allowed.  The default is yes.
+PasswordAuthentication no
+
+UsePAM						 yes
+AcceptEnv					 LANG LC_*
+Subsystem					 sftp /usr/lib/openssh/sftp-server
+AllowUsers					 root
+HostbasedAuthentication		 no
+Port						 $SSH_PORT
+Protocol					 2
+KeyRegenerationInterval		 3600
+SyslogFacility				 AUTH
+LogLevel					 INFO
+LoginGraceTime				 120
+ClientAliveInterval			 30
+ClientAliveCountMax			 0
+IgnoreRhosts				 yes
+RhostsRSAAuthentication		 no
+PermitEmptyPasswords		 no
+RSAAuthentication			 yes
+PubkeyAuthentication		 yes
+PrintMotd					 no
+PrintLastLog				 yes
+Ciphers						 aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr
+MACs						 hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160
+KexAlgorithms				 diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
+EOF
+}
 
 main () {
 	do_upgrade
 	install_base_packages
 	set_prompt
+	set_sshd_conf
 	touch deb_host_done
 }
 
