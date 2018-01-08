@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/MatthieuMichon/post-config.svg?branch=master)](https://travis-ci.org/MatthieuMichon/post-config)
+[![Build Status](https://travis-ci.org/Chuckame/post-config.svg?branch=master)](https://travis-ci.org/Chuckame/post-config)
 
 Scripts run following a Linux fresh install, adding a bunch of stuff so that I feel right at home.
 
@@ -9,4 +9,8 @@ Registering the post-installation configuration script can be done in two differ
 * using a *custom installation*,
 * creating a new template.
 
-In both cases, the *Post installation script link* URI should be set to  ``https://raw.githubusercontent.com/MatthieuMichon/post-config/master/scripts/ovh/ovh.sh``
+In both cases, the *Post installation script link* URI should be set to  ``https://raw.githubusercontent.com/Chuckame/post-config/master/scripts/ovh/ovh.sh``
+
+If you fork this repo, you do change variables :
+- scripts/ovh/ovh_debian : DOMAIN=your.domain
+- scripts/ovh/ovh.sh : URI_ROOT="https://raw.githubusercontent.com/YourGithubName/post-config/master/"
