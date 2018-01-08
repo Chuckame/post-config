@@ -22,7 +22,7 @@ install_base_packages () {
 }
 
 set_prompt () {
-  cat >> /root/.bash_rc <<EOF
+  cat >> /root/.bashrc <<EOF
 PS1="\n\
 ┌ \e[0;91m\${?}\e[0m ─ \e[0;31m\t\e[0m ─ \e[0;32m\u\e[0m@\e[0;94m\h\e[0m\n\
 │\e[0;33m\${PWD}\e[0m\n\
@@ -75,6 +75,8 @@ Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr
 MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160
 KexAlgorithms diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
 EOF
+
+	service sshd restart
 }
 
 main () {
