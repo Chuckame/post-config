@@ -3,14 +3,34 @@
 # Post-installation Configuration Scripts
 #
 # OVH-specific actions for Debian based hosts
-# - Fix locals
+# - Fix locales
 
 
 fix_locales () {
-  sed -i -e 's/^en_GB/# en_GB/' /etc/locale.gen
-  sed -i -e 's/en_GB/en_US/' /etc/default/locale
-  sed -i -e 's/# LANG/LANG/' /etc/default/locale
+  echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+  
+  cat <<EOF > /etc/default/locale
+LANG="en_US.UTF-8"
+LANGUAGE="en_US:en"
+LC_CTYPE="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER="en_US.UTF-8"
+LC_NAME="en_US.UTF-8"
+LC_ADDRESS="en_US.UTF-8"
+LC_TELEPHONE="en_US.UTF-8"
+LC_MEASUREMENT="en_US.UTF-8"
+LC_IDENTIFICATION="en_US.UTF-8"
+EOF
+  
   dpkg-reconfigure --frontend=noninteractive locales
+  
+  rm /etc/localtime
+  ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
+  dpkg-reconfigure --frontend noninteractive tzdata
 }
 
 
