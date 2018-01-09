@@ -7,6 +7,7 @@
 # - Install rancher server
 
 DOCKER_VERSION=17.09
+__RANCHER_DOMAIN__=localhost:8080
 
 install_docker () {
   apt-get install -y curl
@@ -21,6 +22,24 @@ EOF
 
 install_rancher () {
 	docker run -d --restart=unless-stopped --name=rancher-server -p 8080:8080 rancher/server
+	
+	apt-get install -y jq
+
+	# Get project ID
+	PROJECT_ID=$(curl -s http://$__RANCHER_DOMAIN__/v1/projects | jq -r ".data[0].id")
+
+	# Create registration token
+	curl -s -X POST http://$__RANCHER_DOMAIN__/v1/registrationtokens?projectId=$PROJECT_ID
+
+	# Get registration token
+	TOKEN=`curl -s http://$__RANCHER_DOMAIN__/v1/registrationtokens?projectId=$PROJECT_ID | jq -r '.data[0].token'`
+
+	# Get docker image name
+	RANCHER_AGENT_CMD=`curl -s http://$__RANCHER_DOMAIN__/v1/registrationtokens?projectId=$PROJECT_ID | jq -r '.data[0].command'`
+
+	# Start up the beast
+	$RANCHER_AGENT_CMD
+
 }
 
 main () {
