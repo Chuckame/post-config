@@ -5,6 +5,7 @@
 # Common Debian based host tasks
 # - Install Docker packages
 # - Install rancher server
+# - Install nfs
 
 DOCKER_VERSION=17.09
 __RANCHER_DOMAIN__=localhost:8080
@@ -40,6 +41,14 @@ install_rancher () {
 	# Start up the beast
 	$RANCHER_AGENT_CMD
 
+}
+
+install_nfs () {
+	apt-get install -y nfs-kernel-server
+	mkdir /var/nfs
+	chown nobody:nogroup /var/nfs
+	cat '/var/nfs    *(rw,sync,no_subtree_check,no_root_squash)' >> /etc/exports
+	systemctl restart nfs-kernel-server
 }
 
 main () {
