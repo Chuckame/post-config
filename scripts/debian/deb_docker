@@ -8,6 +8,7 @@
 # - Install nfs
 
 DOCKER_VERSION=17.09
+DO_INSTALL_RANCHER_SERVER=0
 __RANCHER_DOMAIN__=localhost:8080
 
 install_docker () {
@@ -22,7 +23,7 @@ EOF
 }
 
 install_rancher () {
-	docker run -d --restart=unless-stopped --name=rancher-server -p 8080:8080 rancher/server
+	docker run -d --restart=unless-stopped --name=rancher-server --label io.rancher.container.network=true -p 8080:8080 rancher/server
 	
 	apt-get install -y jq
 
@@ -53,7 +54,7 @@ install_nfs () {
 
 main () {
 	install_docker
-	install_rancher
+	if [ $DO_INSTALL_RANCHER_SERVER = 1 ]; then install_rancher; fi
 	touch deb_docker_done
 }
 
