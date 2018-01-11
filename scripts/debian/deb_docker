@@ -55,6 +55,7 @@ install_nfs () {
 main () {
 	install_docker
 	if [ $DO_INSTALL_RANCHER_SERVER = 1 ]; then install_rancher; fi
+	install_nfs
 	touch deb_docker_done
 }
 
