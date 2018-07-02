@@ -14,6 +14,7 @@ __RANCHER_DOMAIN__=localhost:8080
 install_docker () {
   apt-get install -y curl xz-utils
   curl https://releases.rancher.com/install-docker/$DOCKER_VERSION.sh | sh
+  echo "docker-ce hold" | dpkg --set-selections
   cat > /etc/docker/daemon.json << EOF
 {
   "dns": ["8.8.8.8", "8.8.4.4"]
