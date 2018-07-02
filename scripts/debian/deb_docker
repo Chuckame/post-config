@@ -7,7 +7,7 @@
 # - Install rancher server
 # - Install nfs
 
-DOCKER_VERSION=17.09
+DOCKER_VERSION=17.12
 DO_INSTALL_RANCHER_SERVER=0
 __RANCHER_DOMAIN__=localhost:8080
 
