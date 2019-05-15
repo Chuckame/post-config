@@ -56,7 +56,7 @@ install_base_packages () {
 
 set_prompt () {
   cat >> /root/.bashrc <<EOF
-PS1='\n┌ \e[0;91m${?}\e[0m ─ \e[0;31m\t\e[0m ─ \e[0;32m\u\e[0m@\e[0;94m\h\e[0m\n│\e[0;33m${PWD}\e[0m\n└ '
+PS1='\n┌ \e[0;91m${?}\e[0m ─ \e[0;31m\t\e[0m ─ \e[0;32m\u\e[0m@\e[0;94m\h\e[0m\n│\e[0;33m$(pwd)\e[0m\n└ '
 PS2="\└ "
 alias rm='rm -I'
 alias l='ls -la --color=always -p --time-style="+%Y:%m:%d-%H%M%S%-:::z"'
